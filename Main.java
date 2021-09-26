@@ -8,9 +8,12 @@ public class Main {
     public static Pessoa p = null;
     public static Livro l = null;
     public static Emprestimo e = null;
+    public static int correspondencias = 0;
+    public static int indice_encontrado_usuario = 0;
+    public static int indice_encontrado_acervo = 0;
+    public static int op = 0;
 
     public static void main(String[] args) {
-        int op = 0;
         do {
             op = Integer.parseInt(JOptionPane.showInputDialog(null,
                     "Bem-Vindo ao Sistema Bibliotecário FMM!\n\n" +
@@ -77,14 +80,102 @@ public class Main {
                                     "Digite o ISBN desejado para busca:",
                                     "Sistema Bibliotecário da FMM",
                                     JOptionPane.INFORMATION_MESSAGE);
-                            acervo.indexOf(busca_de_ISBN);
+                            for (int i = 0; i < acervo.size(); i++) {
+                                if (acervo.get(i).getIsbn().equals(busca_de_ISBN)) {
+                                    correspondencias++;
+                                    indice_encontrado_acervo = i;
+                                }
+                            }
+                            if (correspondencias == 0) {
+                                JOptionPane.showMessageDialog(null,
+                                        "Obra não encontrada no acervo!",
+                                        "Sistema Bibliotecário da FMM",
+                                        JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                String busca_de_usuario = JOptionPane.showInputDialog(null,
+                                        "Digite o CPF usuário desejado para empréstimo:",
+                                        "Sistema Bibliotecário da FMM",
+                                        JOptionPane.INFORMATION_MESSAGE);
+                                correspondencias = 0;
+                                for (int i = 0; i < usuarios.size(); i++) {
+                                    if (usuarios.get(i).getCpf().equals(busca_de_usuario)) {
+                                        correspondencias++;
+                                        indice_encontrado_usuario = i;
+                                    }
+                                }
+                                if (correspondencias == 0) {
+                                    JOptionPane.showMessageDialog(null,
+                                            "Usuário não encontrado!",
+                                            "Sistema Bibliotecário da FMM",
+                                            JOptionPane.ERROR_MESSAGE);
+                                }
+                                else {
+                                    e = new Emprestimo();
+                                    e.setLivro(acervo.get(indice_encontrado_acervo));
+                                    e.setPessoa(usuarios.get(indice_encontrado_usuario));
+                                    emprestimos.add(e);
+                                    JOptionPane.showMessageDialog(null,
+                                            "O usuário:\n" +
+                                                    usuarios.get(indice_encontrado_usuario).getNome() + "\n" +
+                                                    "Emprestou o livro:\n +" +
+                                                    acervo.get(indice_encontrado_acervo).getNome() + "\n" +
+                                                    "Com sucesso!",
+                                                "Sistema Bibliotecário da FMM",
+                                            JOptionPane.PLAIN_MESSAGE);
+                                }
+                            }
                             break;
                         case 2:
                             String busca_de_NOME = JOptionPane.showInputDialog(null,
                                     "Digite o nome desejado para busca:",
                                     "Sistema Bibliotecário da FMM",
                                     JOptionPane.INFORMATION_MESSAGE);
-
+                            for (int i = 0; i < acervo.size(); i++) {
+                                if (acervo.get(i).getNome().equals(busca_de_NOME)) {
+                                    correspondencias++;
+                                    indice_encontrado_acervo = i;
+                                }
+                            }
+                            if (correspondencias == 0) {
+                                JOptionPane.showMessageDialog(null,
+                                        "Obra não encontrada no acervo!",
+                                        "Sistema Bibliotecário da FMM",
+                                        JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                String busca_de_usuario = JOptionPane.showInputDialog(null,
+                                        "Digite o CPF usuário desejado para empréstimo:",
+                                        "Sistema Bibliotecário da FMM",
+                                        JOptionPane.INFORMATION_MESSAGE);
+                                correspondencias = 0;
+                                for (int i = 0; i < usuarios.size(); i++) {
+                                    if (usuarios.get(i).getCpf().equals(busca_de_usuario)) {
+                                        correspondencias++;
+                                        indice_encontrado_usuario = i;
+                                    }
+                                }
+                                if (correspondencias == 0) {
+                                    JOptionPane.showMessageDialog(null,
+                                            "Usuário não encontrado!",
+                                            "Sistema Bibliotecário da FMM",
+                                            JOptionPane.ERROR_MESSAGE);
+                                }
+                                else {
+                                    e = new Emprestimo();
+                                    e.setLivro(acervo.get(indice_encontrado_acervo));
+                                    e.setPessoa(usuarios.get(indice_encontrado_usuario));
+                                    emprestimos.add(e);
+                                    JOptionPane.showMessageDialog(null,
+                                            "O usuário:\n" +
+                                                    usuarios.get(indice_encontrado_usuario).getNome() + "\n" +
+                                                    "Emprestou o livro:\n " +
+                                                    acervo.get(indice_encontrado_acervo).getNome() + "\n" +
+                                                    "Com sucesso!",
+                                            "Sistema Bibliotecário da FMM",
+                                            JOptionPane.PLAIN_MESSAGE);
+                                }
+                            }
                             break;
                         default:
                             JOptionPane.showMessageDialog(null,
@@ -104,6 +195,8 @@ public class Main {
                     l.mostraLivro(acervo);
                     break;
                 case 6:
+                    e = new Emprestimo();
+                    e.mostraEmprestimo(emprestimos);
                     break;
                 case 7:
                     JOptionPane.showMessageDialog(null,

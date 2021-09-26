@@ -1,15 +1,14 @@
 import javax.swing.*;
+import java.text.*;
 import java.util.*;
-import java.time.*;
 
 public class Emprestimo {
-    private LocalDateTime data = LocalDateTime.now();
+    private Date dataAtual = new Date();
+    private DateFormat parametro_formatacao = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    private String data_emprestimo = parametro_formatacao.format(dataAtual);
     private Livro livro = null;
     private Pessoa pessoa = null;
-
-    public Livro getLivro() {
-        return livro;
-    }
+    private String mostradora = "";
 
     public void setLivro(Livro livro) {
         this.livro = livro;
@@ -19,15 +18,15 @@ public class Emprestimo {
         this.pessoa = pessoa;
     }
 
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public LocalDateTime getData() {
-        return data;
-    }
-
-    public void mostraEmprestimo() {
-
+    public void mostraEmprestimo(ArrayList<Emprestimo>emprestimos) {
+        for (int i = 0; i < emprestimos.size(); i++) {
+            mostradora += "Livro emprestado: " + emprestimos.get(i).livro.getNome() + "\n" +
+                            "Nome do usuário: " + emprestimos.get(i).pessoa.getNome() + "\n" +
+                            "Data e hora do empréstimo: " + emprestimos.get(i).data_emprestimo + "\n\n";
+        }
+        JOptionPane.showMessageDialog(null,
+                mostradora,
+                "Sistema Bibliotecário da FMM",
+                JOptionPane.PLAIN_MESSAGE);
     }
 }
