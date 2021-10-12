@@ -28,7 +28,7 @@ public class Pessoa {
         }
         JOptionPane.showMessageDialog(null,
                 mostradora,
-                "Sistema Bibliotecário da FMM",
+                "Sistema Bibliotecário da FMM.",
                 JOptionPane.PLAIN_MESSAGE);
     }
 }
