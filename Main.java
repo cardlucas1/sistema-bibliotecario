@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
         do {
             op = Integer.parseInt(JOptionPane.showInputDialog(null,
-                    "Bem-Vindo ao Sistema Bibliotecário FMM.!\n\n" +
+                    "Bem-Vindo ao Sistema Bibliotecário FMM!\n\n" +
                             "Digite o número referente à opção desejada:\n" +
                             "1. Cadastrar um novo usuário\n" +
                             "2. Cadastrar um novo livro\n" +
